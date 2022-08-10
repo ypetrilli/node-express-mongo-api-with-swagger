@@ -1,0 +1,24 @@
+{
+  "name": "crud-api-node",
+  "version": "1.0.0",
+  "description": "my first nodejs api crud project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ypetrilli/crud-api-node.git"
+  },
+  "keywords": [
+    "node",
+    "api",
+    "express"
+  ],
+  "author": "yuli petrilli",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ypetrilli/crud-api-node/issues"
+  },
+  "homepage": "https://github.com/ypetrilli/crud-api-node#readme"
+}
