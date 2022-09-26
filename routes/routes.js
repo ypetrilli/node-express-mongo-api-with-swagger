@@ -12,19 +12,15 @@ const router = express.Router();
  *       required:
  *         - name
  *       properties:
- *         id:
- *           type: integer
- *           description: The Auto-generated id of a post
  *         name:
- *           type: integer
- *           description: id of author
+ *           type: string
+ *           description: company name
  *         address:
  *           type: string
- *           description: title of post
+ *           description: company description
  *       example:
- *         id: 1
- *         name: 1
- *         address: my title
+ *         name: Test company name
+ *         address: Test company address
  *
  */
 
@@ -40,7 +36,7 @@ const router = express.Router();
  * @swagger 
  * /api/company: 
  *   post: 
- *     summary: Add a new company
+ *     summary: Add new company
  *     description: Create a new Company 
  *     tags: [Company]
  *     requestBody:
@@ -104,7 +100,7 @@ router.get('/companies', async (req, res) => {
  * @swagger 
  * /api/companies/{id}: 
  *   get:
- *     summary: Get company detail
+ *     summary: Get company by ID
  *     description: Get the company detail
  *     tags: [Company]
  *     parameters: 
@@ -124,7 +120,7 @@ router.get('/companies', async (req, res) => {
  *         description: Company not found.
  *   
  */ 
-router.get('/companies/{id}', async (req, res) => {
+router.get('/companies/:id', async (req, res) => {
     try {
         const data = await Company.findById(req.params.id);
         res.json(data)
@@ -145,7 +141,7 @@ router.get('/companies/{id}', async (req, res) => {
  *       - in: path
  *         name: id
  *         schema:
- *           type: integer
+ *           type: string
  *         required: true
  *         description: Company ID
  *     requestBody:
@@ -195,12 +191,12 @@ router.put('/companies/:id', async (req, res) => {
  *       - in: path
  *         name: id
  *         schema:
- *           type: integer
+ *           type: string
  *         required: true
  *         description: Company ID
  *     responses:  
  *       200: 
- *         description: Delete was successful
+ *         description: Company deletion was successful
  *       404: 
  *         description: Company not found
  *   
@@ -209,7 +205,7 @@ router.delete('/companies/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const data = await Company.findByIdAndDelete(id)
-        res.send(`Document with ${data.name} has been deleted..`)
+        res.send(`Document with name ${data.name} has been deleted..`)
     }
     catch (error) {
         res.status(400).json({ message: error.message })
