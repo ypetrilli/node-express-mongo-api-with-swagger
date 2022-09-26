@@ -1,16 +1,16 @@
-//import content form .env file
-require('dotenv').config();
+require('dotenv').config(); //import content form .env file
 
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const port = 3000;
-//Get database connection info
-const mongoString = process.env.DATABASE_URL;
+const cors = require("cors");
+const routes = require('./routes/routes');
 
-// const port = process.env.PORT || 8080;
+//Get database connection info and port
+const DATABASE_URL = process.env.DATABASE_URL;
+const PORT = process.env.PORT || 8080;
 
-mongoose.connect(mongoString);
+mongoose.connect(DATABASE_URL);
 const database = mongoose.connection;
 
 database.on('error', (error) => {
@@ -22,20 +22,18 @@ database.once('connected', () => {
 });
 
 const app = express();
-const routes = require('./routes/routes');
-
 app.use(express.json());
 app.use(bodyParser.json()); // using bodyParser to parse JSON bodies into JS objects
 app.use(express.urlencoded({ extended: true })); // parse requests of content-type - application/x-www-form-urlencoded
 app.use('/api', routes);
+app.use(cors());
 
-//Adding swagger config
-require('./swagger/config')(app);
+require('./swagger/config')(app); //Adding swagger config
 
 app.get('/', (req, res) => {
     res.json({"message": "Welcome to Node Express Rest API CRUD."});
 });
 
-app.listen(3000, () => {
-    console.log(`Server Started at ${3000}`)
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}.`);
 });
